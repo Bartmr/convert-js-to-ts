@@ -6,7 +6,6 @@ import { installTypeDeclarationDependencies } from "./steps/install-type-declara
 import { Configuration, OpenAIApi } from "openai";
 import { EnvironmentVariables } from "./internals/environment-variables";
 import { setupProject } from "./steps/setup-project";
-import { Dependencies } from "./dependencies";
 import { mergeToTsFile } from "./steps/merge-to-ts-file";
 import path from "path";
 import { rm, writeFile } from "fs/promises";
@@ -20,7 +19,7 @@ async function run(args: {
   jsFilesAbsolutePath?: string;
   isNode: boolean;
   directoriesToConvert?: string[],
-  tsConfig: Dependencies["tsConfig"];
+  tsConfig: unknown;
 }) {
   const openAI = new OpenAIApi(
     new Configuration({
@@ -143,7 +142,7 @@ run({
   directoriesToConvert: undefined,
   tsConfig: {
     include: ["src"],
-    exclude: ["node_modules", "gulpfile.js", ".eslintrc.js"],
+    exclude: ["node_modules"],
     compilerOptions: {
       lib: ["es2021"],
       module: "esnext",

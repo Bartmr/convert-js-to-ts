@@ -20,7 +20,7 @@
       "name": "convert-js-to-ts:ts-compiler",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node",
       "cwd": "${workspaceFolder}",
-      "args": ["${workspaceFolder}/src/main.ts"],
+      "args": ["src/main.ts"],
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [
         "<node_internals>/**",

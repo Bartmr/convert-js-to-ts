@@ -1,5 +1,4 @@
 import { readFile } from "fs/promises";
-import { Dependencies } from "../dependencies";
 import { exec as _exec } from "child_process";
 import { promisify } from "util";
 import { glob } from "glob";

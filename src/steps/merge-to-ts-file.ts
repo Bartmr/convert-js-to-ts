@@ -1,5 +1,4 @@
 import { readFile, rm, writeFile } from "fs/promises";
-import { Dependencies } from "../dependencies";
 import { throwError } from "../internals/utils/throw-error";
 import { OpenAIApi } from "openai";
 

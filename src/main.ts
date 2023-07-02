@@ -99,10 +99,6 @@ async function run(args: {
   }> = [];
 
   for (let i = 0; i < jsFilePathsToConvert.length; i++) {
-    if(i > 2) {
-      break;
-    }
-
     const jsFilePath = jsFilePathsToConvert[i] ?? throwError();
 
     const result = await mergeToTsFile({

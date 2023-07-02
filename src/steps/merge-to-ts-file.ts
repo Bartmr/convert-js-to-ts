@@ -26,7 +26,7 @@ export async function mergeToTsFile({
 ${jsFileContent}
 ---
 
-I also have a type declarations for this code:
+I also have the type declarations for this code:
 ---
 ${typeDeclarationFileContent}
 ---
@@ -35,7 +35,7 @@ Merge the two of them into a Typescript file.
 
 Convert namespaces into object literals, but do not convert classes into object literals.
 
-Respond ONLY with the TypeScript code, and nothing else.  Start with the code immediatly. Don't even put delimiters.`;
+Respond ONLY with the TypeScript code, and nothing else. Start with the code immediatly. Don't even put delimiters.`;
 
 
 

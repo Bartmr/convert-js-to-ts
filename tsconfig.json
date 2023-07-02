@@ -1,0 +1,22 @@
+{
+  "include": ["src"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "noEmit": true,
+    
+    "lib": ["es2021"],
+    "module": "CommonJS",
+    "target": "es2021",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+
+    "noUncheckedIndexedAccess": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+  }
+}

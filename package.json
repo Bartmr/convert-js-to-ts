@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "typecheck": "tsc",
+    "start": "ts-node src/main.ts"
+  },
+  "dependencies": {
+    "@types/node": "^20.2.5",
+    "dotenv": "^16.0.3",
+    "glob": "^10.2.6",
+    "openai": "^3.2.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}

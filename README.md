@@ -7,7 +7,7 @@ It's very early-stage, but it has already helped me with some of my projects. Gi
 ## How to use
 
 - Go to `src/main.ts` and scroll to the bottom of the file. Set the following arguments:
-  - `typePackagesToAvoid`: this script will look for `@types` declaration packages for the dependencies your project uses. If you want to avoid some of those `@types` packages, write them down here
+  - `typePackagesToAvoid`: this script will look for `@types` declaration packages for the dependencies in your project. If you want to avoid some of those `@types` packages, write them down here
   - `projectAbsolutePath`: the absolute path for the project you want to convert to Typescript
   - `isNode`: does the project you want to convert runs in NodeJS
   - `directoriesToConvert`: if you don't want to convert all the files in your project right away (maybe you're just trying the tool, don't want to spend too many tokens, or want to migrate slowly), specify which directories you only want to convert.

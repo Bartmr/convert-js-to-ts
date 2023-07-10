@@ -84,9 +84,6 @@ async function run(args: {
     });
   })
 
-  
-
-
   await Promise.all(tsFilePaths.map((tsFilePath) => {
     const declarationFile = path.resolve(args.projectAbsolutePath, tsFilePath).replace(/(.*)\.ts$/, '$1.d.ts')
 
@@ -102,7 +99,7 @@ async function run(args: {
     const jsFilePath = jsFilePathsToConvert[i] ?? throwError();
 
     const result = await mergeToTsFile({
-      jsFileAbsolutePath: path.resolve(args.projectAbsolutePath, jsFilePath),
+      jsFilePath: jsFilePath,
       projectAbsolutePath: args.projectAbsolutePath,
       openAI,
     });

@@ -1,15 +1,19 @@
 import { readFile, rm, writeFile } from "fs/promises";
 import { throwError } from "../internals/utils/throw-error";
 import { OpenAIApi } from "openai";
+import path from "path";
 
 export async function mergeToTsFile({
-  jsFileAbsolutePath,
+  jsFilePath,
+  projectAbsolutePath,
   openAI
 }: {
-  jsFileAbsolutePath: string;
+  jsFilePath: string;
   projectAbsolutePath: string;
   openAI: OpenAIApi
 }): Promise<{ failed: false; } | { failed: true, error: unknown }> {
+  const jsFileAbsolutePath = path.resolve(projectAbsolutePath, jsFilePath);
+  
   const jsFileContent = await readFile(jsFileAbsolutePath, "utf-8");
 
   const dtsFileAbsolutePath =

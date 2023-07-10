@@ -32,18 +32,80 @@ export async function addMongooseJSDocsTypes({
   await forEachOfLimit(mongooseFiles, 4, async (mongooseFile) => {
     const promptResult = await openAI.createChatCompletion({
       temperature: 0,
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
-        { role: "system", content: "You are a code assistant that adds Typescript types as JSDocs." },
-        { role: 'user',  content: `I have the following Javascript code with a Mongoose Schema and Model:
-
-        ---
-        ${mongooseFile.text}
-        ---
-
-        I want you to add types to the Schema and Model using JSDocs.
+        { role: "system", content: "You are a code assistant that adds types Javascript code with JSDocs." },
+        { role: 'user',  content: `I want to add Typescript typings to Mongoose Schemas and Models as JSDocs, so I can output declaration giles later.
         
-        Start with the code immediatly. Don't even put delimiters.`}
+Here's an example of how you should do it.
+
+The original code:
+
+\`\`\`
+const mongoose = require("mongoose");
+
+const ASSETS_SCHEMA = new mongoose.Schema(
+  {
+    url: {
+      type: String,
+      required: true,
+    },
+    bytes: {
+      type: Number,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+
+const Assets = mongoose.model("assets", ASSETS_SCHEMA);
+\`\`\`
+
+The code with added types as JSDocs
+
+\`\`\`
+const mongoose = require("mongoose");
+
+/**
+  * @typedef {{
+  *  _id: import('mongoose').Schema.Types.ObjectId,
+  *  url: string,
+  *  bytes: number,
+  *  createdAt: Date,
+  *  updatedAt: Date,
+  *}} Asset
+  * @type {import('mongoose').Schema<Asset>}
+ */
+const ASSETS_SCHEMA = new mongoose.Schema(
+  {
+    url: {
+      type: String,
+      required: true,
+    },
+    bytes: {
+      type: Number,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+/**
+ * @type {import('mongoose').Model<Asset, {}, {}, {}>}
+ */
+const Assets = mongoose.model("assets", ASSETS_SCHEMA);
+\`\`\`
+
+I want you to convert the code below as I did in the example above
+
+\`\`\`
+${mongooseFile.text}
+\`\`\`
+
+Start with the code immediatly. Don't even put delimiters. I repeat, DO NOT PREFIX ANYTHING. JUST OUTPUT VALID JAVASCRIPT`},
       ]
     });
 

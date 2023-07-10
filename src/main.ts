@@ -10,6 +10,7 @@ import { mergeToTsFile } from "./steps/merge-to-ts-file";
 import path from "path";
 import { rm, writeFile } from "fs/promises";
 import { throwError } from "./internals/utils/throw-error";
+import { addMongooseJSDocsTypes } from "./steps/add-mongoose-jsdoc-types";
 
 const exec = promisify(_exec);
 
@@ -60,6 +61,12 @@ async function run(args: {
       return fileName.endsWith(".js")
     }
   });
+
+  await addMongooseJSDocsTypes({
+    jsFilePaths: jsFilePathsToConvert,
+    projectAbsolutePath: args.projectAbsolutePath,
+    openAI
+  })
 
   await new Promise((resolve, reject) => {
     const childProcess = spawn(`node_modules/.bin/tsc --allowJS --checkJS false --noEmit false --declaration --emitDeclarationOnly --skipLibCheck`, {

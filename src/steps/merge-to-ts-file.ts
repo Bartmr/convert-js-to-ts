@@ -49,7 +49,7 @@ Respond ONLY with the TypeScript code, and nothing else. Start with the code imm
     console.log(`Converting ${jsFileAbsolutePath}...`)
     promptResult = await openAI.createChatCompletion({
       temperature: 0,
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
         { role: "system", content: "You are a code refactoring assistant." },
         { role: 'user',  content: prompt}

@@ -71,7 +71,7 @@ const mongoose = require("mongoose");
 /**
   * @typedef {{
   *  url: string,
-  *  bytes: number,
+  *  bytes?: number,
   *  createdAt: Date,
   *  updatedAt: Date,
   *}} Asset

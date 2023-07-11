@@ -21,8 +21,8 @@ export async function installTypeDeclarationDependencies(
     "utf-8"
   );
   const packageJson = JSON.parse(packageJsonContentString) as {
-    dependencies?: Array<{ [packageName: string]: string }>;
-    devDependencies?: Array<{ [packageName: string]: string }>;
+    dependencies?: { [packageName: string]: string };
+    devDependencies?: { [packageName: string]: string };
   };
 
   if(isNode) {
@@ -31,10 +31,10 @@ export async function installTypeDeclarationDependencies(
     })
   }
 
-  for (const [dependencyName, dependencyVersion] of [
-    ...Object.entries(packageJson.dependencies || {}),
-    ...Object.entries(packageJson.devDependencies || {}),
-  ]) {
+  for (const [dependencyName, dependencyVersion] of Object.entries({
+    ...packageJson.devDependencies ,
+    ...packageJson.dependencies
+  })) {
     if (dependencyName.startsWith("@types/")) {
       console.info(`${dependencyName} already is a @types package`)
       continue;

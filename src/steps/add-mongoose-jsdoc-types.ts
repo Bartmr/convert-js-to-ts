@@ -70,7 +70,6 @@ const mongoose = require("mongoose");
 
 /**
   * @typedef {{
-  *  _id: import('mongoose').Schema.Types.ObjectId,
   *  url: string,
   *  bytes: number,
   *  createdAt: Date,

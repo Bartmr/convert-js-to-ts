@@ -39,6 +39,10 @@ Merge the two of them into a Typescript file.
 
 Convert namespaces into object literals, but do not convert classes into object literals.
 
+Convert require() to Typescript imports.
+
+Convert all module.exports to Typescript exports.
+
 Respond ONLY with the TypeScript code, and nothing else. Start with the code immediatly. Don't even put delimiters.`;
 
 

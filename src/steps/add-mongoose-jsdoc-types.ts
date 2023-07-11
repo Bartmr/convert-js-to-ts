@@ -63,7 +63,7 @@ const ASSETS_SCHEMA = new mongoose.Schema(
 const Assets = mongoose.model("assets", ASSETS_SCHEMA);
 \`\`\`
 
-The code with added types as JSDocs
+The code with added types as JSDocs:
 
 \`\`\`
 const mongoose = require("mongoose");
@@ -76,7 +76,8 @@ const mongoose = require("mongoose");
   *  createdAt: Date,
   *  updatedAt: Date,
   *}} Asset
-  * @type {import('mongoose').Schema<Asset>}
+  * @typedef {import('mongoose').Schema<Asset>} AssetsSchema
+  * @type {AssetsSchema}
  */
 const ASSETS_SCHEMA = new mongoose.Schema(
   {
@@ -94,7 +95,8 @@ const ASSETS_SCHEMA = new mongoose.Schema(
 );
 
 /**
- * @type {import('mongoose').Model<Asset, {}, {}, {}>}
+ * @typedef {import('mongoose').Model<Asset, {}, {}, {}, Asset, AssetsSchema>} AssetsModel
+ * @type {AssetsModel}
  */
 const Assets = mongoose.model("assets", ASSETS_SCHEMA);
 \`\`\`

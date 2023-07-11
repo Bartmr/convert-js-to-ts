@@ -11,6 +11,7 @@ import path from "path";
 import { rm, writeFile } from "fs/promises";
 import { throwError } from "./internals/utils/throw-error";
 import { addMongooseJSDocsTypes } from "./steps/add-mongoose-jsdoc-types";
+import { forEachLimit } from "async";
 
 const exec = promisify(_exec);
 
@@ -69,7 +70,7 @@ async function run(args: {
   })
 
   await new Promise((resolve, reject) => {
-    const childProcess = spawn(`node_modules/.bin/tsc --allowJS --checkJS false --noEmit false --declaration --emitDeclarationOnly --skipLibCheck`, {
+    const childProcess = spawn(`node_modules/.bin/tsc --allowJS --checkJS false --noEmit false --declaration --emitDeclarationOnly --skipLibCheck --outDir null`, {
       cwd: args.projectAbsolutePath,
       shell: '/bin/bash'
     });
@@ -102,9 +103,7 @@ async function run(args: {
     error: unknown;
   }> = [];
 
-  for (let i = 0; i < jsFilePathsToConvert.length; i++) {
-    const jsFilePath = jsFilePathsToConvert[i] ?? throwError();
-
+  await forEachLimit(jsFilePathsToConvert, 4, async (jsFilePath) => {
     const result = await mergeToTsFile({
       jsFilePath: jsFilePath,
       projectAbsolutePath: args.projectAbsolutePath,
@@ -117,7 +116,7 @@ async function run(args: {
         error: result.error,
       });
     }
-  }
+  })
 
   if(failures.length > 0) {
     await writeFile(

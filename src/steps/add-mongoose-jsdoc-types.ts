@@ -105,7 +105,7 @@ I want you to convert the code below as I did in the example above
 ${mongooseFile.text}
 \`\`\`
 
-Start with the code immediatly. Don't even put delimiters. I repeat, DO NOT PREFIX ANYTHING. JUST OUTPUT VALID JAVASCRIPT`},
+Start with the code immediatly. Don't even put delimiters. I repeat, DO NOT PREFIX ANYTHING. JUST OUTPUT VALID JAVASCRIPT.`},
       ]
     });
 

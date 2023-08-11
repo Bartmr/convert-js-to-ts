@@ -14,7 +14,7 @@ export async function installTypeDeclarationDependencies(
     typePackagesToAvoid: string[],
     projectAbsolutePath: string;
     isNode: boolean
-  } 
+  }
 ) {
   const packageJsonContentString = await readFile(
     `${projectAbsolutePath}/package.json`,
@@ -50,7 +50,7 @@ export async function installTypeDeclarationDependencies(
       continue;
     }
 
-    const typesDependencyName = `@types/${dependencyName.replaceAll('@', '').replaceAll('/', '__')}`
+    const typesDependencyName = `@types/${dependencyName.replace(/@/g, '').replace(/\//g, '__')}`;
 
     if(typePackagesToAvoid.includes(typesDependencyName)) {
       console.info(`${typesDependencyName} is in typePackagesToAvoid`)

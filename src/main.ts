@@ -20,7 +20,7 @@ async function run(args: {
   projectAbsolutePath: string;
   jsFilesAbsolutePath?: string;
   isNode: boolean;
-  directoriesToConvert?: string[],
+  directoriesToConvert?: string,
   tsConfig: unknown;
 }) {
   const openAI = new OpenAIApi(
@@ -55,13 +55,7 @@ async function run(args: {
     fileName.endsWith(".ts")
   );
 
-  const jsFilePathsToConvert = tsConfig.files.filter((fileName) => {
-    if(args.directoriesToConvert) {
-      return fileName.endsWith(".js") && args.directoriesToConvert.some((directory) => fileName.startsWith(directory))
-    } else {
-      return fileName.endsWith(".js")
-    }
-  });
+  const jsFilePathsToConvert = tsConfig.files.filter((fileName) => fileName.endsWith(".js"));
 
   await addMongooseJSDocsTypes({
     jsFilePaths: jsFilePathsToConvert,
@@ -74,15 +68,15 @@ async function run(args: {
       cwd: args.projectAbsolutePath,
       shell: '/bin/bash'
     });
-  
+
     childProcess.stdout.on('data', (data) => {
       console.info(`stdout: ${data}`);
     });
-  
+
     childProcess.stderr.on('data', (data) => {
       console.error(`stderr: ${data}`);
     });
-  
+
     childProcess.on('close', (code) => {
       if(code !== 0) {
         reject(new Error())
@@ -135,28 +129,41 @@ async function run(args: {
 }
 
 run({
-  typePackagesToAvoid: ["@types/yup"],
-  projectAbsolutePath: path.resolve('test-targets/simple'),
-  isNode: false,
-  directoriesToConvert: undefined,
+  typePackagesToAvoid: [''],
+  projectAbsolutePath: path.resolve(
+    './../int-rezcomm-carpark'
+  ),
+  isNode: true,
+  directoriesToConvert: path.resolve(
+    './../int-rezcomm-carpark/src'
+  ),
   tsConfig: {
-    include: ["src"],
-    exclude: ["node_modules"],
+    include: ['src/**/*'],
+    exclude: ['node_modules'],
     compilerOptions: {
-      lib: ["es2021"],
-      module: "esnext",
-      target: "esnext",
-
-      strict: true,
-      esModuleInterop: true,
-      skipLibCheck: true,
+      target: 'es2022',
+      module: 'commonjs',
+      outDir: './dist',
+      rootDir: './src',
+      allowJs: true,
       forceConsistentCasingInFileNames: true,
-      moduleResolution: "node",
-
-      noUncheckedIndexedAccess: true,
-    },
-  },
+      strictPropertyInitialization: true,
+      allowSyntheticDefaultImports: true,
+      useUnknownInCatchVariables: false,
+      emitDecoratorMetadata: true,
+      experimentalDecorators: true,
+      noImplicitOverride: true,
+      noImplicitReturns: true,
+      resolveJsonModule: true,
+      esModuleInterop: true,
+      removeComments: true,
+      noImplicitAny: true,
+      skipLibCheck: true,
+      sourceMap: true,
+      strict: true
+    }
+  }
 }).catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+  console.error(err)
+  process.exit(1)
+})

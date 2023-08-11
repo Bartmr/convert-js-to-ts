@@ -13,7 +13,7 @@ export async function mergeToTsFile({
   openAI: OpenAIApi
 }): Promise<{ failed: false; } | { failed: true, error: unknown }> {
   const jsFileAbsolutePath = path.resolve(projectAbsolutePath, jsFilePath);
-  
+
   const jsFileContent = await readFile(jsFileAbsolutePath, "utf-8");
 
   const dtsFileAbsolutePath =

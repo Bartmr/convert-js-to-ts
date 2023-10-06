@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Launch ts-node",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/ts-node",
-      "cwd": "${fileDirname}",
+      "cwd": "${workspaceFolder}",
       "args": ["${file}"],
       "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [

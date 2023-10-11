@@ -20,7 +20,7 @@ async function run(args: {
   projectAbsolutePath: string;
   jsFilesAbsolutePath?: string;
   isNode: boolean;
-  directoriesToConvert?: string[],
+  directoriesToConvert?: string,
   tsConfig: unknown;
 }) {
   const openAI = new OpenAIApi(
@@ -134,29 +134,45 @@ async function run(args: {
   }
 }
 
-run({
-  typePackagesToAvoid: ["@types/yup"],
-  projectAbsolutePath: path.resolve('test-targets/simple'),
-  isNode: false,
-  directoriesToConvert: undefined,
-  tsConfig: {
-    include: ["src"],
-    exclude: ["node_modules"],
-    compilerOptions: {
-      lib: ["es2021"],
-      module: "esnext",
-      target: "esnext",
-
-      strict: true,
-      esModuleInterop: true,
-      skipLibCheck: true,
-      forceConsistentCasingInFileNames: true,
-      moduleResolution: "node",
-
-      noUncheckedIndexedAccess: true,
-    },
-  },
-}).catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+export async function jstots (projectAbsolutePathFolder: string) {
+  try {
+    await run({
+      typePackagesToAvoid: [''],
+      projectAbsolutePath: path.resolve(
+        projectAbsolutePathFolder
+      ),
+      isNode: true,
+      directoriesToConvert: path.resolve(
+        `${projectAbsolutePathFolder}/src`
+      ),
+      tsConfig: {
+        include: ['src/**/*'],
+        exclude: ['node_modules'],
+        compilerOptions: {
+          target: 'es2022',
+          module: 'commonjs',
+          outDir: './dist',
+          rootDir: './src',
+          allowJs: true,
+          forceConsistentCasingInFileNames: true,
+          strictPropertyInitialization: true,
+          allowSyntheticDefaultImports: true,
+          useUnknownInCatchVariables: false,
+          emitDecoratorMetadata: true,
+          experimentalDecorators: true,
+          noImplicitOverride: true,
+          noImplicitReturns: true,
+          resolveJsonModule: true,
+          esModuleInterop: true,
+          removeComments: true,
+          noImplicitAny: true,
+          skipLibCheck: true,
+          sourceMap: true,
+          strict: true
+        }
+      }
+    })
+  } catch (err) {
+    
+  }
+}

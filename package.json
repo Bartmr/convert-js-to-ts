@@ -14,5 +14,7 @@
   },
   "devDependencies": {
     "@types/async": "^3.2.20"
-  }
+  },
+  "name": "js-to-ts",
+  "main": "./src/main.ts"
 }
